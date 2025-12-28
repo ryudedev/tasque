@@ -1,0 +1,11 @@
+---
+globs: Makefile
+alwaysApply: true
+description: Makefileの追加/修正の際に、守るべきルール
+---
+
+## Makefileの記述方法について
+### 基本方針
+- Makefileは、基本的に`Makefile`から実行することとする。
+    - 環境変数は、`configs/.env_{local|prd}`とする。
+- cFnのコマンド名は、`deploy-stack{number}`とします。

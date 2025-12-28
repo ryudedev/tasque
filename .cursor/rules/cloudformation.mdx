@@ -1,0 +1,27 @@
+---
+globs: deployments/cloudformation/*.yaml
+alwaysApply: true
+description: cloudformation(cFn)の修正の際に、守るべきルール
+---
+
+## cFnの記述方法について
+### 各層の定義方法
+- template1.yaml
+    - ネットワーク層
+    - ex) VPC, Subnet
+- template2.yaml
+    - インフラ基盤層
+    - ex) SecurityGroup, Route Table, IAM Role, IAM Policy
+- template3.yaml
+    - ビジネス基盤層
+    - ex) RDS, S3 Bucket, ECR, SecretsManager, CloudWatch
+- template4.yaml
+    - ビジネスロジック層
+    - ex) StepFunctions, ECS TaskDefinition, LambdaFunction
+
+### 基本方針
+- 各テンプレートは、基本的に環境変数から読み込むものとする。
+    - 環境変数は、`configs/.env_{local|prd}`とする。
+- cFnは、基本的に`Makefile`から実行することとする。@.cursor/makefile.mdxに乗っ取ること。
+- 各リソースの命名規則は、`{Service}-{Stage}-{Serial}-*`とします。
+    - ex) tasque-local-001-Vpc
